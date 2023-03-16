@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--引入vue、axios相关js文件-->
+    <script src="vue.min.js"></script>
+    <script src="axios.min.js"></script>
+    <!--数据显示区域-->
+    <div id="app">
+
+    </div>
+    <!--编写vue代码-->
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                userList:[] //列表数组
+            },
+            created() { //页面渲染前
+                //调用方法
+                this.getList()
+            },
+            methods:{
+                //axios发送ajax请求
+                getList() {
+                    axios.get("data.json")
+                        //成功调用then方法，得到接口或文件数据
+                        .then(response => {
+                            //response返回http协议返回信息
+                            // console.log(respose)
+                            this.userList = response.data.data
+                            console.log(this.userList)
+                        })
+                        //失败调用catch方法
+                        .catch(error => {
+                            console.log(error)
+                        })
+                }
+            }
+        })
+    </script>
+</body>
+</html>
